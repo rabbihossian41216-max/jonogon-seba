@@ -1,0 +1,120 @@
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizens' Service | জনগণ সেবা</title>
+<style>
+:root{--navy:#102a43;--green:#087f5b;--mint:#d9f7e9;--gold:#f4c95d;--ink:#183247;--muted:#64748b;--paper:#f5f8fc;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Bengali",Arial,sans-serif;background:var(--paper);color:var(--ink)}
+header{background:linear-gradient(135deg,#102a43 0%,#087f5b 100%);color:white;padding:24px 18px 32px;border-radius:0 0 28px 28px}
+.top{max-width:980px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.logo{width:44px;height:44px;border-radius:15px;background:#ffffff20;border:1px solid #ffffff55;display:grid;place-items:center;font-size:23px}
+.badge{font-size:11px;border:1px solid #ffffff55;border-radius:99px;padding:6px 10px;color:#e4fff2}
+.hero{max-width:980px;margin:30px auto 0}
+.hero h1{font-size:clamp(27px,6vw,42px);line-height:1.18;margin:0 0 10px;letter-spacing:-.5px}
+.hero p{margin:0;color:#d9f5e9;line-height:1.7;max-width:620px;font-size:14px}
+main{max-width:980px;margin:-12px auto 0;padding:0 16px 32px}
+.panel{background:white;border:1px solid #e3ebf2;border-radius:20px;padding:18px;box-shadow:0 12px 30px #17324d0d}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:2px 0 14px}
+h2{font-size:19px;margin:0;color:var(--navy)}
+.small{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.service{border:1px solid #e4edf2;background:#fff;border-radius:16px;padding:15px;text-align:left;min-height:135px;cursor:pointer;color:var(--ink);transition:.15s}
+.service:active{transform:scale(.98)}
+.icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:var(--mint);font-size:22px;margin-bottom:10px}
+.service strong{display:block;font-size:14px;margin-bottom:5px}
+.service span{display:block;color:var(--muted);font-size:12px;line-height:1.5}
+.auth{margin-top:16px}
+.tabs{display:flex;gap:8px;background:#eef4f7;border-radius:12px;padding:5px;margin:16px 0}
+.tabs button{flex:1;border:0;background:transparent;border-radius:9px;padding:11px;font-weight:700;color:#526779}
+.tabs button.active{background:white;color:var(--green);box-shadow:0 2px 8px #18324712}
+label{display:block;font-size:13px;font-weight:650;margin:12px 0 6px}
+input{width:100%;border:1px solid #d7e2ea;border-radius:11px;padding:13px;font:inherit;font-size:14px;outline:none;background:#fbfdff}
+input:focus{border-color:var(--green);box-shadow:0 0 0 3px #087f5b18}
+.primary{width:100%;border:0;border-radius:11px;background:var(--green);color:white;padding:13px;font-weight:750;font-size:15px;margin-top:15px;cursor:pointer}
+.link{display:block;text-align:center;margin-top:13px;color:var(--green);font-size:13px;font-weight:700;text-decoration:none}
+.hidden{display:none!important}
+.notice{margin-top:16px;padding:12px 14px;border-radius:12px;background:#fff8df;border:1px solid #f3e4a8;color:#6f5a15;font-size:12px;line-height:1.65}
+footer{text-align:center;color:#778899;font-size:12px;padding:0 16px 24px;line-height:1.7}
+#message{font-size:13px;margin-top:10px;color:var(--green);line-height:1.6}
+@media(min-width:700px){.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.auth{margin-top:0}.hero{margin-top:38px}main{margin-top:-10px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="brand"><div class="logo">✦</div><div>Citizens' Service<div style="font-size:11px;font-weight:500;color:#d9f5e9">জনগণ সেবা</div></div></div>
+    <span class="badge">সহজ • নিরাপদ • সবার জন্য</span>
+  </div>
+  <div class="hero">
+    <h1>আপনার সেবা,<br>এক জায়গায়।</h1>
+    <p>প্রয়োজনীয় আবেদন ও নথি-সংক্রান্ত সেবার তথ্য সহজে খুঁজে নিন। শুরু করতে নিচের সেবাটি বেছে নিন অথবা অ্যাকাউন্টে প্রবেশ করুন।</p>
+  </div>
+</header>
+<main>
+<div class="layout">
+  <section class="panel">
+    <div class="section-head"><h2>সেবাসমূহ</h2><span class="small">Services</span></div>
+    <div class="grid">
+      <button class="service" onclick="chooseService('নিবন্ধন আবেদন')"><div class="icon">📝</div><strong>নিবন্ধন আবেদন</strong><span>আবেদনের তথ্য ও নির্দেশনা</span></button>
+      <button class="service" onclick="chooseService('ডকুমেন্ট প্রতিলিপি')"><div class="icon">📄</div><strong>ডকুমেন্ট প্রতিলিপি</strong><span>নথির কপি পাওয়ার আবেদন</span></button>
+      <button class="service" onclick="chooseService('স্বাক্ষর সংক্রান্ত সেবা')"><div class="icon">✍️</div><strong>স্বাক্ষর সংক্রান্ত সেবা</strong><span>নিজের স্বাক্ষর ব্যবস্থাপনা</span></button>
+      <button class="service" onclick="chooseService('NID সেবা')"><div class="icon">🪪</div><strong>NID সেবা</strong><span>অনুমোদিত সেবার তথ্য</span></button>
+      <button class="service" onclick="chooseService('সার্ভার কপি')"><div class="icon">🗂️</div><strong>সার্ভার কপি</strong><span>অনুমোদিত নথির অনুরোধ</span></button>
+      <button class="service" onclick="chooseService('অন্যান্য সহায়তা')"><div class="icon">🤝</div><strong>অন্যান্য সহায়তা</strong><span>সেবা সম্পর্কে জানতে</span></button>
+    </div>
+    <div class="notice">এটি একটি নমুনা ওয়েবসাইট। এখানে দেওয়া ফর্ম বা বাটন কোনো সরকারি সার্ভারে সংযুক্ত নয় এবং বাস্তব NID/নথি সংগ্রহ করে না। সরকারি সেবা চালু করতে সংশ্লিষ্ট কর্তৃপক্ষের অনুমোদন ও নিরাপদ সংযোগ প্রয়োজন।</div>
+  </section>
+  <section class="panel auth">
+    <h2 id="formTitle">আপনার অ্যাকাউন্ট</h2>
+    <p class="small" style="margin:7px 0 0">ডেমো দেখতে নিবন্ধন বা লগইন বেছে নিন।</p>
+    <div class="tabs"><button id="loginTab" class="active" onclick="showForm('login')">লগইন</button><button id="registerTab" onclick="showForm('register')">নিবন্ধন</button></div>
+    <form id="loginForm" onsubmit="demoLogin(event)">
+      <label for="loginEmail">ইমেইল</label><input id="loginEmail" type="email" placeholder="demo@example.com" required>
+      <label for="loginPassword">পাসওয়ার্ড</label><input id="loginPassword" type="password" placeholder="ডেমো পাসওয়ার্ড" required>
+      <button class="primary" type="submit">লগইন করুন</button>
+      <a class="link" href="#" onclick="showForm('forgot');return false">পাসওয়ার্ড ভুলে গেছেন? (Forgot Password)</a>
+    </form>
+    <form id="registerForm" class="hidden" onsubmit="demoRegister(event)">
+      <label for="fullName">আপনার নাম</label><input id="fullName" placeholder="নাম লিখুন" required>
+      <label for="regEmail">ইমেইল</label><input id="regEmail" type="email" placeholder="demo@example.com" required>
+      <label for="regPassword">পাসওয়ার্ড</label><input id="regPassword" type="password" minlength="8" placeholder="কমপক্ষে ৮ অক্ষর" required>
+      <button class="primary" type="submit">ডেমো নিবন্ধন</button>
+      <a class="link" href="#" onclick="showForm('login');return false">আগে অ্যাকাউন্ট আছে? লগইন</a>
+    </form>
+    <form id="forgotForm" class="hidden" onsubmit="demoForgot(event)">
+      <label for="forgotEmail">অ্যাকাউন্টের ইমেইল</label><input id="forgotEmail" type="email" placeholder="demo@example.com" required>
+      <button class="primary" type="submit">পুনরুদ্ধারের নির্দেশনা দেখুন</button>
+      <a class="link" href="#" onclick="showForm('login');return false">লগইনে ফিরে যান</a>
+    </form>
+    <div id="message" aria-live="polite"></div>
+  </section>
+</div>
+</main>
+<footer>© Citizens' Service — শিক্ষামূলক ডেমো<br>বাস্তব অ্যাকাউন্ট, পাসওয়ার্ড পুনরুদ্ধার বা সরকারি নথির জন্য ব্যাকএন্ড প্রয়োজন।</footer>
+<script>
+function showForm(which){
+  ['login','register','forgot'].forEach(id=>document.getElementById(id+'Form').classList.toggle('hidden',id!==which));
+  document.getElementById('loginTab').classList.toggle('active',which==='login');
+  document.getElementById('registerTab').classList.toggle('active',which==='register');
+  document.getElementById('formTitle').textContent=which==='register'?'নতুন অ্যাকাউন্ট':which==='forgot'?'পাসওয়ার্ড পুনরুদ্ধার':'আপনার অ্যাকাউন্ট';
+  document.getElementById('message').textContent='';
+}
+function chooseService(name){
+  document.getElementById('message').textContent='আপনি বেছে নিয়েছেন: '+name+'। এটি ডেমো; বাস্তব আবেদন এখনো জমা হয় না।';
+  document.querySelector('.auth').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function demoRegister(e){e.preventDefault();document.getElementById('message').textContent='ডেমো নিবন্ধন সফলভাবে দেখানো হলো। কোনো তথ্য সার্ভারে সংরক্ষণ হয়নি।';}
+function demoLogin(e){e.preventDefault();document.getElementById('message').textContent='এটি শুধু ডেমো লগইন। বাস্তব অ্যাকাউন্ট যাচাইয়ের জন্য সার্ভার প্রয়োজন।';}
+function demoForgot(e){e.preventDefault();document.getElementById('message').textContent='ডেমো: পাসওয়ার্ড পুনরুদ্ধারের ব্যবস্থা দেখানো হলো। বাস্তবে ইমেইল/SMS যাচাই ও নিরাপদ সার্ভার লাগবে।';}
+</script>
+</body>
+</html>'''
+path = Path("/mnt/data/citizens_service_new_design.html")
+path.write_text(html, encoding="utf-8")
+print(f"ফাইল তৈরি হয়েছে: {path} ({path.stat().st_size} bytes)")
